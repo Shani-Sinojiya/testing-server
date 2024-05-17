@@ -4,6 +4,20 @@ const SMTPServer = require("smtp-server").SMTPServer;
 
 const server = new SMTPServer({
   authMethods: ["PLAIN"],
+  logger: true,
+  secure: true,
+  allowInsecureAuth: true,
+  keepAlive: true,
+  size: 25 * 1024 * 1024,
+
+  disableReverseLookup: true,
+  needsUpgrade: true,
+  name: "shanisinojiya.tech",
+
+  key: fs.readFileSync("./domain.key", "utf-8"),
+  cert: fs.readFileSync("./domain.crt", "utf-8"),
+  passphrase: "Shani@9880",
+
   onAuth(auth, session, callback) {
     console.log("Auth event");
     console.log("session", session);
@@ -42,16 +56,6 @@ const server = new SMTPServer({
     console.log("Rcpt to:", address.address);
     callback();
   },
-
-  logger: true,
-  secure: true,
-
-  hidePIPELINING: true,
-  size: 25 * 1024 * 1024,
-
-  key: fs.readFileSync("./domain.key", "utf-8"),
-  cert: fs.readFileSync("./domain.crt", "utf-8"),
-  passphrase: "Shani@9880",
 });
 
 server.on("error", (err) => {
