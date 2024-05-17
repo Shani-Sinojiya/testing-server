@@ -1,5 +1,5 @@
 const { CheckUserIsInDb } = require("./user");
-
+const fs = require("fs");
 const SMTPServer = require("smtp-server").SMTPServer;
 
 const server = new SMTPServer({
@@ -46,9 +46,15 @@ const server = new SMTPServer({
 
   logger: true,
   secure: true,
+  secured: true,
 
-  key: fs.readFileSync("domain.key"),
-  cert: fs.readFileSync("domain.crt"),
+  key: fs.readFileSync("./domain.key", "utf-8"),
+  cert: fs.readFileSync("./domain.crt", "utf-8"),
+  passphrase: "Shani@9880",
+});
+
+server.on("error", (err) => {
+  console.log("Error %s", err.message);
 });
 
 server.listen(465);
