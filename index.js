@@ -45,11 +45,9 @@ const server = new SMTPServer({
 
   logger: true,
   secure: true,
-  useXClient: true,
 
   hidePIPELINING: true,
   size: 25 * 1024 * 1024,
-  useXForward: true,
 
   key: fs.readFileSync("./domain.key", "utf-8"),
   cert: fs.readFileSync("./domain.crt", "utf-8"),
