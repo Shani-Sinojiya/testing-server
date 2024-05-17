@@ -6,6 +6,7 @@ const server = new SMTPServer({
   authMethods: ["PLAIN"],
   logger: true,
   secure: true,
+  secured: true,
   allowInsecureAuth: true,
   keepAlive: true,
   size: 25 * 1024 * 1024,
