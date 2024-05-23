@@ -43,7 +43,7 @@ const server = new SMTPServer({
   },
   onConnect(cb) {
     console.log("Connected");
-    cb();
+    cb(null);
   },
   onClose() {
     console.log("Connection closed");
