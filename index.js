@@ -17,11 +17,6 @@ const server = new SMTPServer({
   banner: "Welcome to shanisinojiya.tech",
 
   useXClient: true,
-  hidePIPELINING: true,
-  hideSMTP: true,
-  hideSTARTTLS: true,
-  hide8BITMIME: true,
-  hideSIZE: true,
 
   key: fs.readFileSync("./domain.key", "utf-8"),
   cert: fs.readFileSync("./domain.crt", "utf-8"),
@@ -29,7 +24,7 @@ const server = new SMTPServer({
 
   onAuth(auth, session, callback) {
     console.log("Auth event");
-    console.log("session", auth.session);
+    console.log("session", session);
     if (!CheckUserIsInDb(auth.username, auth.password)) {
       return callback(new Error("Invalid username or password"));
     }
