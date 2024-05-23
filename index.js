@@ -17,6 +17,7 @@ const server = new SMTPServer({
   banner: "Welcome to shanisinojiya.tech",
 
   useXClient: true,
+  useXForward: true,
 
   key: fs.readFileSync("./domain.key", "utf-8"),
   cert: fs.readFileSync("./domain.crt", "utf-8"),
@@ -24,7 +25,7 @@ const server = new SMTPServer({
 
   onAuth(auth, session, callback) {
     console.log("Auth event");
-    console.log("session", session);
+    console.log("session", session.id);
     if (!CheckUserIsInDb(auth.username, auth.password)) {
       return callback(new Error("Invalid username or password"));
     }
@@ -58,15 +59,11 @@ const server = new SMTPServer({
   onMailFrom(address, session, callback) {
     console.log("Mail from:", address.address);
 
-    session.envelope.mailFrom = true;
-
     callback();
   },
 
   onRcptTo(address, session, callback) {
     console.log("Rcpt to:", address.address);
-
-    session.envelope.rcptTo = [...session.envelope.rcptTo, address];
     callback();
   },
 });
