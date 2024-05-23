@@ -27,7 +27,7 @@ const server = new SMTPServer({
   cert: fs.readFileSync("./domain.crt", "utf-8"),
   passphrase: "Shani@9880",
 
-  onAuth(auth, callback) {
+  onAuth(auth, session, callback) {
     console.log("Auth event");
     console.log("session", auth.session);
     if (!CheckUserIsInDb(auth.username, auth.password)) {
