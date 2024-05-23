@@ -41,7 +41,7 @@ const server = new SMTPServer({
       },
     });
   },
-  onConnect(cb) {
+  onConnect(session, cb) {
     console.log("Connected");
     cb(null);
   },
@@ -49,7 +49,7 @@ const server = new SMTPServer({
     console.log("Connection closed");
   },
 
-  onData(stream, callback) {
+  onData(stream, session, callback) {
     console.log("Data event");
     stream.pipe(process.stdout);
     console.log("Data event end");
